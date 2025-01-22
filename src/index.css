@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .navMenu a.active {
+    @apply bg-blue-50 px-4 py-1 rounded-full;
+  }
+
+  .navMenu a:hover {
+    @apply underline;
+  }
+}
