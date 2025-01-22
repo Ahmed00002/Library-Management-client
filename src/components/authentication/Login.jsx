@@ -1,13 +1,39 @@
 import { Link } from "react-router-dom";
+import useAuthContext from "../hooks/useAuthContext";
+import { toast } from "react-toastify";
 
 const Login = () => {
+  const { signupWithGoogle, signinEmailPass } = useAuthContext();
+
+  //signup with google
+  const handleGoogleSignup = () => {
+    signupWithGoogle()
+      .then(() => {
+        toast.success("Account created successfully");
+      })
+      .catch((e) => toast.error(e.message));
+  };
+
+  // sign in with email and password
+  const handleSignin = (e) => {
+    e.preventDefault();
+    const form = new FormData(e.target);
+    const formData = Object.fromEntries(form.entries());
+
+    signinEmailPass(formData.email, formData.password)
+      .then(() => {
+        toast.success("logged in successfully");
+      })
+      .catch((e) => toast.error(e.message));
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 py-8">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded shadow-md">
         <h2 className="text-center text-2xl font-bold text-gray-800">Login</h2>
 
         {/* Email and Password Form */}
-        <form className="space-y-2">
+        <form onSubmit={handleSignin} className="space-y-2">
           <div>
             <label
               htmlFor="email"
@@ -65,6 +91,7 @@ const Login = () => {
         {/* Social Login */}
         <div className="space-y-2">
           <button
+            onClick={handleGoogleSignup}
             type="button"
             className="w-auto flex items-center justify-center  text-gray-500 btn btn-sm mx-auto rounded-full"
           >

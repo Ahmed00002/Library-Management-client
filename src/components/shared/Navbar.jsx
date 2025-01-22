@@ -1,6 +1,20 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import useAuthContext from "../hooks/useAuthContext";
+import { CiLogout, CiSettings, CiUser } from "react-icons/ci";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
+  const { user, logout } = useAuthContext();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    logout()
+      .then(() => {
+        toast.success("Logged out successful");
+        navigate("/auth/login");
+      })
+      .catch((e) => toast.error(e.message));
+  };
+
   const navMenus = (
     <>
       <NavLink className="px-4 py-1" to={"/"}>
@@ -75,28 +89,47 @@ const Navbar = () => {
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-10 rounded-full">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                />
+                <img alt="user image" src={user?.photoURL} />
               </div>
             </div>
             {/* user profile menus */}
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              className="menu menu-md dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
+              <div className="justify-between text-center py-4">
+                <div className="w-12 rounded-full mx-auto mb-2">
+                  <img
+                    className="rounded-full"
+                    alt="user image"
+                    src={user?.photoURL}
+                  />
+                </div>
+                <h2 className="font-bold"> {user?.displayName}</h2>
+                <h4 className="text-xs"> {user?.email}</h4>
+              </div>
               <li>
-                <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
+                <div className="justify-between">
+                  <p className="flex items-center gap-2">
+                    <CiUser />
+                    Profile
+                  </p>
+                  <p className="badge-md flex items-center justify-center bg-blue-100 rounded-full text-xs">
+                    New
+                  </p>
+                </div>
+              </li>
+              <li>
+                <a className="flex items-center">
+                  <CiSettings />
+                  Settings
                 </a>
               </li>
               <li>
-                <a>Settings</a>
-              </li>
-              <li>
-                <a>Logout</a>
+                <button onClick={handleLogout} className="flex items-center">
+                  <CiLogout />
+                  Logout
+                </button>
               </li>
             </ul>
           </div>

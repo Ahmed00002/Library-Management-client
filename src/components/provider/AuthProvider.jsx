@@ -6,13 +6,14 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signOut,
 } from "firebase/auth";
 import auth from "../firebase/firebase_init";
 import { useEffect, useState } from "react";
 
 const AuthProvider = ({ children }) => {
   // user data
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
 
   // email pass signup
   const signUpEmailPass = (email, password) => {
@@ -22,6 +23,11 @@ const AuthProvider = ({ children }) => {
   // email pass signin
   const signinEmailPass = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  //   logout
+  const logout = () => {
+    return signOut(auth);
   };
 
   // google signin
@@ -40,10 +46,17 @@ const AuthProvider = ({ children }) => {
 
     return () => {
       unsubscribe();
+      setUser(null);
     };
   }, []);
 
-  const authInfo = { signupWithGoogle, signUpEmailPass, signinEmailPass, user };
+  const authInfo = {
+    signupWithGoogle,
+    signUpEmailPass,
+    signinEmailPass,
+    logout,
+    user,
+  };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );
