@@ -4,6 +4,8 @@ import Home from "../layouts/Home";
 import Login from "../authentication/login";
 import Signup from "../authentication/signup";
 import Forget from "../authentication/Forget";
+import AllBooks from "../pages/AllBooks";
+import CategoryBooks from "../pages/CategoryBooks";
 
 export const router = createBrowserRouter([
   {
@@ -28,7 +30,14 @@ export const router = createBrowserRouter([
       },
       {
         path: "/books",
-        element: <div>books</div>,
+        element: <AllBooks />,
+        loader: () => fetch("http://localhost:5000/books"),
+      },
+      {
+        path: "/books/category/:name",
+        element: <CategoryBooks />,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/books/category?name=${params.name}`),
       },
       {
         path: "/add/book",

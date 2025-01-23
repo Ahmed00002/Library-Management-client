@@ -1,6 +1,7 @@
+import PropTypes from "prop-types";
 import BookCard from "./BooksCard";
 
-const PopularBooks = () => {
+const PopularBooks = ({ books }) => {
   const categories = ["Story", "Fairy", "Jokes", "history"];
   return (
     <>
@@ -16,26 +17,24 @@ const PopularBooks = () => {
           </p>
         </div>
         {/* category buttons */}
-        <div className="flex flex-wrap md:flex-nowrap gap-2 my-4">
-          {categories.map((category) => {
+        <div className="flex flex-wrap md:flex-nowrap gap-2  py-4">
+          {categories.map((category, idx) => {
             return (
-              <>
-                <button className="px-4 py-1 rounded-full border bg-transparent hover:bg-gray-50">
-                  {category}
-                </button>
-              </>
+              <button
+                key={idx}
+                className="px-4 py-1 rounded-full border bg-transparent hover:bg-gray-50"
+              >
+                {category}
+              </button>
             );
           })}
         </div>
 
         {/* books container */}
-        <div className="grid grid-cols-6 gap-2 my-41">
-          <BookCard />
-          <BookCard />
-          <BookCard />
-          <BookCard />
-          <BookCard />
-          <BookCard />
+        <div className="grid grid-cols-6 gap-2 py-4">
+          {books.map((b) => (
+            <BookCard bookData={b} key={b._id} />
+          ))}
         </div>
       </div>
     </>
@@ -43,3 +42,7 @@ const PopularBooks = () => {
 };
 
 export default PopularBooks;
+
+PopularBooks.propTypes = {
+  books: PropTypes.array,
+};

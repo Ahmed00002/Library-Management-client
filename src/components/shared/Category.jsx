@@ -2,6 +2,7 @@ import literature from "../../assets/category/literature.png";
 import socialScience from "../../assets/category/socialScience.png";
 import appliedScience from "../../assets/category/appliedScience.png";
 import artAndCreation from "../../assets/category/artAndRecreation.png";
+import { Link } from "react-router-dom";
 const Category = () => {
   const topics = [
     {
@@ -21,7 +22,7 @@ const Category = () => {
     },
     {
       id: 4,
-      title: "Art & Recreation",
+      title: "Art and Recreation",
       image: [artAndCreation],
     },
   ];
@@ -34,19 +35,23 @@ const Category = () => {
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {topics.map((topic) => (
-            <div
+            <Link
+              state={topic.title}
+              to={`/books/category/${topic.title}`}
               key={topic.id}
-              className=" border border-gray-300 rounded-lg p-6 flex flex-col items-center hover:shadow-lg transition cursor-pointer category"
             >
-              <img
-                src={topic.image[0]}
-                alt=""
-                className="w-16 h-16 mb-4 opacity-50"
-              />
-              <h3 className="text-lg font-medium text-gray-800">
-                {topic.title}
-              </h3>
-            </div>
+              {" "}
+              <div className=" border border-gray-300 rounded-lg p-6 flex flex-col items-center hover:shadow-lg transition cursor-pointer category">
+                <img
+                  src={topic.image[0]}
+                  alt=""
+                  className="w-16 h-16 mb-4 opacity-50"
+                />
+                <h3 className="text-lg font-medium text-gray-800">
+                  {topic.title}
+                </h3>
+              </div>
+            </Link>
           ))}
         </div>
       </div>

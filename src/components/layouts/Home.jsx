@@ -1,19 +1,27 @@
+import { useEffect, useState } from "react";
 import Category from "../shared/Category";
 import HomeSwiper from "../shared/HomeSwiper";
 import PopularBooks from "../shared/PopularBooks";
+import axios from "axios";
 
 const Home = () => {
+  const [popularBooks, setPopularBooks] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/books/popular")
+      .then((res) => setPopularBooks(res.data));
+  }, []);
   return (
     <>
       <header className="">
         <div className="relative mb-24">
           <HomeSwiper />
           <div className=" w-full lg:w-8/12 mx-auto absolute bottom-0 translate-y-1/2 z-10  left-1/2 -translate-x-1/2 center resPadding">
-            <div className="bg-white p-2 rounded-lg  shadow-md ">
-              <label className="flex items-center gap-2">
+            <div className="bg-white px-4 py-5 rounded-lg  shadow-lg ">
+              <label className="flex items-center gap-2 px-2">
                 <input
                   type="text"
-                  className="grow p-2 border-none outline-none"
+                  className="grow  border-none outline-none"
                   placeholder="Search by category"
                 />
                 <svg
@@ -40,7 +48,7 @@ const Home = () => {
       </section>
 
       <section className="center resPadding">
-        <PopularBooks />
+        <PopularBooks books={popularBooks} />
       </section>
     </>
   );

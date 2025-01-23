@@ -27,4 +27,12 @@
   .category:hover img {
     opacity: 1;
   }
+
+  .bookCard:hover img {
+    @apply transform transition-all duration-300 ease-in-out scale-105;
+  }
+
+  .bookCard:hover h2 {
+    @apply underline;
+  }
 }
