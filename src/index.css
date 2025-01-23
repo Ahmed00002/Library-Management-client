@@ -1,13 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer utilities {
+  .body {
+    @apply font-montserrat;
+  }
   .navMenu a.active {
     @apply bg-blue-50 px-4 py-1 rounded-full;
   }
 
   .navMenu a:hover {
     @apply underline;
+  }
+
+  .center {
+    @apply max-w-[1400px] mx-auto;
+  }
+
+  .resPadding {
+    @apply px-5 md:px-6 2xl:px-24;
+  }
+
+  .category:hover img {
+    opacity: 1;
   }
 }

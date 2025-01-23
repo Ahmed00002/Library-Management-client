@@ -35,21 +35,6 @@ const AuthProvider = ({ children }) => {
     const provider = new GoogleAuthProvider();
     return signInWithPopup(auth, provider);
   };
-
-  //get current signed in user
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-      }
-    });
-
-    return () => {
-      unsubscribe();
-      setUser(null);
-    };
-  }, []);
-
   const authInfo = {
     signupWithGoogle,
     signUpEmailPass,
@@ -57,6 +42,22 @@ const AuthProvider = ({ children }) => {
     logout,
     user,
   };
+
+  //get current signed in user
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );

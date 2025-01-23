@@ -28,7 +28,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100  py-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100  py-8 bg-[url(https://cdn.pixabay.com/photo/2024/04/19/12/13/ai-generated-8706226_640.png)] bg-no-repeat bg-cover">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded shadow-md">
         <h2 className="text-center text-2xl font-bold text-gray-800">
           Register

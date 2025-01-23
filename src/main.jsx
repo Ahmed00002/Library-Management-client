@@ -6,6 +6,13 @@ import { router } from "./components/routes/Router";
 import AuthProvider from "./components/provider/AuthProvider";
 import { Bounce, ToastContainer } from "react-toastify";
 
+// react swiper
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/effect-fade";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ToastContainer

@@ -1,0 +1,74 @@
+[
+  {
+    "image": "https://i.imghippo.com/files/vkW6815fgE.jpeg",
+    "title": "Brave New World",
+    "author": "Aldous Huxley",
+    "category": "Literature",
+    "rating": 4.7,
+    "description": "A novel exploring a futuristic, controlled society."
+  },
+  {
+    "image": "https://i.imghippo.com/files/hkLJ2204vo.jpeg",
+    "title": "Thinking, Fast and Slow",
+    "author": "Daniel Kahneman",
+    "category": "Social Sciences",
+    "rating": 4.6,
+    "description": "Explores the dual systems of human thought processes."
+  },
+  {
+    "image": "https://i.imghippo.com/files/ahj9185Ac.jpg",
+    "title": "Guns, Germs, and Steel",
+    "author": "Jared Diamond",
+    "category": "Social Sciences",
+    "rating": 4.8,
+    "description": "An exploration of the factors shaping human history."
+  },
+  {
+    "image": "https://i.imghippo.com/files/XmDT3547oY.jpg",
+    "title": "The Elegant Universe",
+    "author": "Brian Greene",
+    "category": "Applied Sciences",
+    "rating": 4.7,
+    "description": "Explains string theory and the fabric of the cosmos."
+  },
+  {
+    "image": "https://i.imghippo.com/files/PmE8725Is.jpg",
+    "title": "Cosmos",
+    "author": "Carl Sagan",
+    "category": "Applied Sciences",
+    "rating": 4.9,
+    "description": "A journey through the universe and our place in it."
+  },
+  {
+    "image": "https://i.imghippo.com/files/tlG4843dkI.jpeg",
+    "title": "The Art of War",
+    "author": "Sun Tzu",
+    "category": "Art & Recreation",
+    "rating": 4.5,
+    "description": "Ancient wisdom on strategy and warfare."
+  },
+  {
+    "image": "https://i.imghippo.com/files/GtLD6874lE.jpg",
+    "title": "Steal Like an Artist",
+    "author": "Austin Kleon",
+    "category": "Art & Recreation",
+    "rating": 4.6,
+    "description": "Insights on creativity and generating new ideas."
+  },
+  {
+    "image": "https://i.imghippo.com/files/BCP1089SJE.jpg",
+    "title": "Meditations",
+    "author": "Marcus Aurelius",
+    "category": "Literature",
+    "rating": 4.8,
+    "description": "Reflections on philosophy and self-discipline."
+  },
+  {
+    "image": "https://i.imghippo.com/files/SOUY3357fuE.jpg",
+    "title": "The Psychology of Money",
+    "author": "Morgan Housel",
+    "category": "Social Sciences",
+    "rating": 4.7,
+    "description": "Timeless lessons on wealth, greed, and happiness."
+  }
+]

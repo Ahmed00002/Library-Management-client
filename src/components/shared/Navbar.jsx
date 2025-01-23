@@ -34,7 +34,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="navbar bg-base-100">
+      <div className="navbar bg-base-100 resPadding center">
         <div className="navbar-start">
           {/* mobile menus */}
           <div className="dropdown">
@@ -74,65 +74,79 @@ const Navbar = () => {
 
         {/* login button and user profile image and info */}
         <div className="navbar-end gap-4">
-          <NavLink to={"/auth/login"}>
-            <button className="btn btn-md rounded-full bg-transparent border border-blue-500 hover:bg-blue-500 hover:text-white">
-              Login/Signup
-            </button>
-          </NavLink>
-
-          {/* user profile and profile menu */}
-          <div className="dropdown dropdown-end">
-            {/* user profile image */}
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle avatar"
-            >
-              <div className="w-10 rounded-full">
-                <img alt="user image" src={user?.photoURL} />
-              </div>
-            </div>
-            {/* user profile menus */}
-            <ul
-              tabIndex={0}
-              className="menu menu-md dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-            >
-              <div className="justify-between text-center py-4">
-                <div className="w-12 rounded-full mx-auto mb-2">
-                  <img
-                    className="rounded-full"
-                    alt="user image"
-                    src={user?.photoURL}
-                  />
-                </div>
-                <h2 className="font-bold"> {user?.displayName}</h2>
-                <h4 className="text-xs"> {user?.email}</h4>
-              </div>
-              <li>
-                <div className="justify-between">
-                  <p className="flex items-center gap-2">
-                    <CiUser />
-                    Profile
-                  </p>
-                  <p className="badge-md flex items-center justify-center bg-blue-100 rounded-full text-xs">
-                    New
-                  </p>
-                </div>
-              </li>
-              <li>
-                <a className="flex items-center">
-                  <CiSettings />
-                  Settings
-                </a>
-              </li>
-              <li>
-                <button onClick={handleLogout} className="flex items-center">
-                  <CiLogout />
-                  Logout
+          {!user ? (
+            <>
+              <NavLink to={"/auth/login"}>
+                <button className="font-semibold  hover:text-blue-500">
+                  Login
                 </button>
-              </li>
-            </ul>
-          </div>
+              </NavLink>
+              <NavLink to={"/auth/register"}>
+                <button className="font-bold hover:text-blue-500">
+                  Signup
+                </button>
+              </NavLink>
+            </>
+          ) : (
+            <>
+              {/* user profile and profile menu */}
+              <div className="dropdown dropdown-end">
+                {/* user profile image */}
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="btn btn-ghost btn-circle avatar"
+                >
+                  <div className="w-10 rounded-full">
+                    <img alt="user image" src={user?.photoURL} />
+                  </div>
+                </div>
+                {/* user profile menus */}
+                <ul
+                  tabIndex={0}
+                  className="menu menu-md dropdown-content bg-base-100 rounded-box z-[100] mt-3 w-52 p-2 shadow"
+                >
+                  <div className="justify-between text-center py-4">
+                    <div className="w-12 rounded-full mx-auto mb-2">
+                      <img
+                        className="rounded-full"
+                        alt="user image"
+                        src={user?.photoURL}
+                      />
+                    </div>
+                    <h2 className="font-bold"> {user?.displayName}</h2>
+                    <h4 className="text-xs"> {user?.email}</h4>
+                  </div>
+                  <li>
+                    <div className="justify-between">
+                      <p className="flex items-center gap-2">
+                        <CiUser />
+                        Profile
+                      </p>
+                      <p className="badge-md flex items-center justify-center bg-blue-100 rounded-full text-xs">
+                        New
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <a className="flex items-center">
+                      <CiSettings />
+                      Settings
+                    </a>
+                  </li>
+                  <li>
+                    <button
+                      onClick={handleLogout}
+                      className="flex items-center"
+                    >
+                      <CiLogout />
+                      Logout
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>

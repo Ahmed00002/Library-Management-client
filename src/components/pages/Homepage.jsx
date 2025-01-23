@@ -6,7 +6,9 @@ const Homepage = () => {
   return (
     <>
       <Navbar />
-      <Outlet />
+      <main className="bg-gray-50">
+        <Outlet />
+      </main>
       <Footer />
     </>
   );
