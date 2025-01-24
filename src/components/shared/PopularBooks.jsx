@@ -32,8 +32,8 @@ const PopularBooks = ({ books }) => {
 
         {/* books container */}
         <div className="grid grid-cols-6 gap-2 py-4">
-          {books.map((b) => (
-            <BookCard bookData={b} key={b._id} />
+          {books.map((book) => (
+            <BookCard bookData={{ book, isButton: false }} key={book._id} />
           ))}
         </div>
       </div>

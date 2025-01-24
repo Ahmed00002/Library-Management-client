@@ -35,4 +35,14 @@
   .bookCard:hover h2 {
     @apply underline;
   }
+
+  .book-details-cover::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(0, 0, 72);
+    opacity: 0.8;
+  }
 }

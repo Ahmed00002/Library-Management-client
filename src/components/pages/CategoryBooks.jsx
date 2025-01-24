@@ -19,7 +19,7 @@ const CategoryBooks = () => {
         {/* all book list */}
         <div className="grid grid-cols-6 gap-2">
           {booksList.map((book) => (
-            <BookCard key={book._id} bookData={book}></BookCard>
+            <BookCard key={book._id} bookData={{ book }}></BookCard>
           ))}
         </div>
       </section>
