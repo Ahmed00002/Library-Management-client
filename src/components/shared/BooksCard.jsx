@@ -50,9 +50,11 @@ const BookCard = ({ bookData }) => {
         {isButton && (
           <>
             <div className="grow flex items-end px-2">
-              <button className="btn btn-sm my-2 w-full rounded-sm bg-green-500 text-white hover:bg-green-600">
-                Update
-              </button>
+              <Link className="w-full" to={`/books/edit/${_id}`}>
+                <button className="btn btn-sm my-2 w-full rounded-sm bg-green-500 text-white hover:bg-green-600">
+                  Update
+                </button>
+              </Link>
             </div>
           </>
         )}

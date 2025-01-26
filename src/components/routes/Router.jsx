@@ -7,6 +7,8 @@ import Forget from "../authentication/Forget";
 import AllBooks from "../pages/AllBooks";
 import CategoryBooks from "../pages/CategoryBooks";
 import BookDetails from "../pages/BookDetails";
+import UpdateBooks from "../pages/UpdateBooks";
+import PrivateRoutes from "./private/PrivateRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -31,7 +33,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/books",
-        element: <AllBooks />,
+        element: (
+          <PrivateRoutes>
+            <AllBooks />
+          </PrivateRoutes>
+        ),
         loader: () => fetch("http://localhost:5000/books"),
       },
       {
@@ -42,7 +48,21 @@ export const router = createBrowserRouter([
       },
       {
         path: "/books/:id",
-        element: <BookDetails />,
+        element: (
+          <PrivateRoutes>
+            <BookDetails />
+          </PrivateRoutes>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/books/${params.id}`),
+      },
+      {
+        path: "/books/edit/:id",
+        element: (
+          <PrivateRoutes>
+            <UpdateBooks />
+          </PrivateRoutes>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:5000/books/${params.id}`),
       },
