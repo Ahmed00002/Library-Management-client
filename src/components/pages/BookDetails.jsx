@@ -1,24 +1,45 @@
 import { useLoaderData } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import BorrowModal from "../shared/modals/BorrowModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAuthContext from "../hooks/useAuthContext";
 import { toast } from "react-toastify";
 import { axiosSecure } from "../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { CiBookmark, CiBookmarkCheck } from "react-icons/ci";
 
 const BookDetails = () => {
-  const bookDtls = useLoaderData();
+  const [bookDtls, setBookDtls] = useState(useLoaderData());
   const { _id, image, title, rating, author, category, description, quantity } =
     bookDtls;
   const [isOpen, setIsOpen] = useState(false);
   const [returnDate, setReturnDate] = useState("");
+  const [isAlreadyBorrowed, setIsAlreadyBorrowed] = useState(false);
   const { user } = useAuthContext();
   const today = new Date().toISOString().split("T")[0];
 
+  //fetch data from server and check if the book already borrowed by the user
+  useEffect(() => {
+    axiosSecure
+      .get(`/user/borrowed?email=${user.email}&bookId=${_id}&validate=true`)
+      .then((res) => {
+        if (res.data.length !== 0) {
+          setIsAlreadyBorrowed(true);
+        }
+      });
+  }, []);
+
+  // function for open and close modal
   const openModal = () => {
     setIsOpen(!isOpen);
     console.log(isOpen);
+  };
+
+  //   update book data after borrowing
+  const refreshBookData = () => {
+    axiosSecure
+      .get(`http://localhost:5000/books/${_id}`)
+      .then((res) => setBookDtls(res.data));
   };
 
   // handle modal on submit
@@ -45,6 +66,7 @@ const BookDetails = () => {
             text: "You borrowed the book successfully. Kindly return it on time",
             icon: "success",
           });
+          refreshBookData();
         }
       });
     } else {
@@ -52,6 +74,7 @@ const BookDetails = () => {
     }
     setIsOpen(false);
   };
+
   return (
     <>
       <div className="  min-h-screen">
@@ -97,10 +120,27 @@ const BookDetails = () => {
               {/* Borrow Button */}
               <div className="mt-6 flex gap-4 items-center">
                 <button
+                  disabled={isAlreadyBorrowed || quantity === 0 ? true : false}
                   onClick={openModal}
-                  className="bg-green-500 text-white font-bold py-2 px-6 rounded-lg shadow-lg hover:bg-green-600 transition duration-300"
+                  className={`${
+                    quantity === 0
+                      ? "bg-red-500"
+                      : "bg-green-500 hover:bg-green-600"
+                  } text-white font-bold py-2 px-6 rounded-lg shadow-lg  transition duration-300 flex items-center gap-2`}
                 >
-                  Borrow Now
+                  {quantity !== 0 ? (
+                    isAlreadyBorrowed ? (
+                      <>
+                        <CiBookmarkCheck className="text-xl" /> Borrowed
+                      </>
+                    ) : (
+                      <>
+                        <CiBookmark className="text-xl" /> Borrow Now
+                      </>
+                    )
+                  ) : (
+                    "Out of collections"
+                  )}
                 </button>
                 <h1 className="bg-gray-200 text-green-500 font-medium py-2 px-6 rounded-lg shadow-lg  transition duration-300">
                   Available : {quantity}

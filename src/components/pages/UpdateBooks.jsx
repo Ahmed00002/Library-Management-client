@@ -115,6 +115,9 @@ const UpdateBooks = () => {
               <input
                 type="number"
                 name="rating"
+                min={1}
+                max={5}
+                step={0.1}
                 defaultValue={bookData.rating}
                 className="mt-1 block w-full text-gray-800 border-gray-300 rounded-lg shadow-sm outline-none border px-2"
                 required

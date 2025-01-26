@@ -28,7 +28,7 @@ const BookCard = ({ bookData }) => {
                   <ReactStars
                     count={5}
                     value={rating}
-                    //   size={24}
+                    size={24}
                     activeColor="#ffd700"
                     isHalf={true}
                     edit={false}

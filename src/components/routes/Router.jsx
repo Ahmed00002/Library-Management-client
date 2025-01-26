@@ -9,7 +9,7 @@ import CategoryBooks from "../pages/CategoryBooks";
 import BookDetails from "../pages/BookDetails";
 import UpdateBooks from "../pages/UpdateBooks";
 import PrivateRoutes from "./private/PrivateRoutes";
-import BorrowModal from "../shared/modals/BorrowModal";
+import BorrowedBooks from "../pages/BorrowedBooks";
 
 export const router = createBrowserRouter([
   {
@@ -73,7 +73,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/user/borrowed",
-        element: <BorrowModal />,
+        element: (
+          <PrivateRoutes>
+            <BorrowedBooks />
+          </PrivateRoutes>
+        ),
       },
     ],
   },
