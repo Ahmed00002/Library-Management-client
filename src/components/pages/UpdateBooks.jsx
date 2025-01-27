@@ -1,8 +1,9 @@
 import { useLoaderData } from "react-router-dom";
-import { axiosSecure } from "../hooks/useAxiosSecure";
 import { toast } from "react-toastify";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const UpdateBooks = () => {
+  const axiosSecure = useAxiosSecure();
   const bookData = useLoaderData();
   const categories = [
     "Literature",

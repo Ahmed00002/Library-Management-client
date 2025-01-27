@@ -10,6 +10,7 @@ import {
 } from "firebase/auth";
 import auth from "../firebase/firebase_init";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 const AuthProvider = ({ children }) => {
   // user data
@@ -40,6 +41,8 @@ const AuthProvider = ({ children }) => {
     const provider = new GoogleAuthProvider();
     return signInWithPopup(auth, provider);
   };
+
+  // provider data
   const authInfo = {
     signupWithGoogle,
     signUpEmailPass,
@@ -47,6 +50,7 @@ const AuthProvider = ({ children }) => {
     logout,
     user,
     loading,
+    setLoading,
   };
 
   //get current signed in user
@@ -55,6 +59,16 @@ const AuthProvider = ({ children }) => {
       if (user) {
         setUser(user);
         setLoading(false);
+
+        axios
+          .post(
+            "http://localhost:5000/jwt",
+            {
+              email: user.email,
+            },
+            { withCredentials: true }
+          )
+          .then((res) => console.log(res.data));
       } else {
         setUser(null);
         setLoading(true);
@@ -74,5 +88,5 @@ const AuthProvider = ({ children }) => {
 export default AuthProvider;
 
 AuthProvider.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.node.isRequired,
 };

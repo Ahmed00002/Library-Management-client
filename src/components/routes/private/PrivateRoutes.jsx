@@ -6,18 +6,18 @@ import Loading from "../../shared/loader/Loading";
 const PrivateRoutes = ({ children }) => {
   const { user, loading } = useAuthContext();
 
+  if (user) {
+    return children;
+  }
   if (loading) {
     return <Loading />;
   }
 
-  if (user) {
-    return children;
-  }
-  return <Navigate to={"/auth/login"}></Navigate>;
+  return <Navigate to={"/auth/login"} />;
 };
 
 export default PrivateRoutes;
 
 PrivateRoutes.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.node,
 };

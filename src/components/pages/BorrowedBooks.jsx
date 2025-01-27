@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { axiosSecure } from "../hooks/useAxiosSecure";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 import useAuthContext from "../hooks/useAuthContext";
 import BorrowedBookCard from "../shared/BorrowedBooksCard";
 import { FaRegSadCry } from "react-icons/fa";
-import axios from "axios";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const BorrowedBooks = () => {
+  const axiosSecure = useAxiosSecure();
   //   const [bookData, setBookData] = useState([]);
   const [BorrowedBookData, setBorrowedBookData] = useState([]);
   const { user } = useAuthContext();
@@ -18,9 +20,29 @@ const BorrowedBooks = () => {
       .then((res) => setBorrowedBookData(res.data));
   }, [user?.email]);
 
+  const refreshData = () => {
+    axiosSecure
+      .get(`/user/borrowed?email=${user?.email}`)
+      .then((res) => setBorrowedBookData(res.data));
+  };
+
   //   handle return book
-  const handleReturn = (id) => {
-    axiosSecure.post();
+  const handleReturn = (borrowedId, currentId) => {
+    axiosSecure
+      .get(`/return?bbId=${borrowedId}&cbId=${currentId}&email=${user.email}`)
+      .then((res) => {
+        if (res.data.deletedCount > 0) {
+          refreshData();
+          Swal.fire({
+            title: "Successful",
+            text: "Thanks for returning the books. Feel free to borrow again",
+            icon: "success",
+          });
+        }
+      })
+      .catch((e) => {
+        toast.error(e.response.data.message);
+      });
   };
 
   return (
@@ -42,7 +64,7 @@ const BorrowedBooks = () => {
             You Haven&apos;t borrowed any book yet
           </h1>
         </div>
-        <div className="grid grid-cols-6 gap-2 center resPadding">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2 center resPadding">
           {BorrowedBookData.map((book) => (
             <BorrowedBookCard key={book._id} props={{ book, handleReturn }} />
           ))}

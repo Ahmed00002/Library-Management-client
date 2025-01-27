@@ -4,21 +4,31 @@ import BorrowModal from "../shared/modals/BorrowModal";
 import { useEffect, useState } from "react";
 import useAuthContext from "../hooks/useAuthContext";
 import { toast } from "react-toastify";
-import { axiosSecure } from "../hooks/useAxiosSecure";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { CiBookmark, CiBookmarkCheck } from "react-icons/ci";
 
 const BookDetails = () => {
+  const axiosSecure = useAxiosSecure();
   const [bookDtls, setBookDtls] = useState(useLoaderData());
   const { _id, image, title, rating, author, category, description, quantity } =
     bookDtls;
   const [isOpen, setIsOpen] = useState(false);
   const [returnDate, setReturnDate] = useState("");
   const [isAlreadyBorrowed, setIsAlreadyBorrowed] = useState(false);
-  const { user } = useAuthContext();
+  const { user, setLoading } = useAuthContext();
   const today = new Date().toISOString().split("T")[0];
 
-  //fetch data from server and check if the book already borrowed by the user
+  // update book data after borrowing
+  const refreshBookData = () => {
+    axiosSecure.get(`/books/${_id}`).then((res) => {
+      setBookDtls(res.data);
+      console.log(res.data);
+      setLoading(false);
+    });
+  };
+
+  //   fetch data from server and check if the book already borrowed by the user
   useEffect(() => {
     axiosSecure
       .get(`/user/borrowed?email=${user.email}&bookId=${_id}&validate=true`)
@@ -27,25 +37,17 @@ const BookDetails = () => {
           setIsAlreadyBorrowed(true);
         }
       });
-  }, []);
+  }, [refreshBookData]);
 
   // function for open and close modal
   const openModal = () => {
     setIsOpen(!isOpen);
-    console.log(isOpen);
-  };
-
-  //   update book data after borrowing
-  const refreshBookData = () => {
-    axiosSecure
-      .get(`http://localhost:5000/books/${_id}`)
-      .then((res) => setBookDtls(res.data));
   };
 
   // handle modal on submit
   const handleModalSubmit = (e) => {
+    setLoading(true);
     e.preventDefault();
-    console.log(returnDate);
     const userInfo = {
       returnDate: returnDate,
       userName: user.displayName,
@@ -55,6 +57,7 @@ const BookDetails = () => {
 
     if (returnDate < today) {
       toast.error("Please select a future date");
+      setLoading(false);
       return;
     }
 
@@ -71,6 +74,7 @@ const BookDetails = () => {
       });
     } else {
       toast.error("Retrun date required");
+      setLoading(false);
     }
     setIsOpen(false);
   };

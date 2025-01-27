@@ -1,16 +1,16 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
-import { axiosSecure } from "../hooks/useAxiosSecure";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const BorrowedBookCard = ({ props }) => {
-  //   const { title } = book;
   console.log(props);
+  const axiosSecure = useAxiosSecure();
 
   const { book, handleReturn } = props;
 
   const [bookDetails, setBookDetails] = useState([]);
-  const { borrowData, borrowedBookId, returnDate } = book;
+  const { _id, borrowData, borrowedBookId, returnDate } = book;
 
   useEffect(() => {
     axiosSecure
@@ -69,7 +69,7 @@ const BorrowedBookCard = ({ props }) => {
 
         <div className="grow flex items-end px-2">
           <button
-            onClick={() => handleReturn(borrowedBookId)}
+            onClick={() => handleReturn(borrowedBookId, _id)}
             className="btn btn-sm my-2 w-full rounded-sm bg-green-500 text-white hover:bg-green-600"
           >
             Return

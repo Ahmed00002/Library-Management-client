@@ -29,11 +29,11 @@ const Category = () => {
 
   return (
     <section className="mb-10">
-      <div className="container mx-auto text-center">
+      <div className="center resPadding mx-auto text-center">
         <h2 className="text-3xl font-semibold text-gray-700 mb-6">
           Select the category you are interested in
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
           {topics.map((topic) => (
             <Link
               state={topic.title}
