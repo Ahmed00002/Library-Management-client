@@ -6,7 +6,7 @@ const DataLoader = ({ id }) => {
   const [books, setBooks] = useState([]);
   useEffect(() => {
     axiosSecure
-      .get(`http://localhost:5000/books/${id}`)
+      .get(`https://library-management-server-iota.vercel.app/books/${id}`)
       .then((res) => setBooks(res.data));
   }, []);
   return books;

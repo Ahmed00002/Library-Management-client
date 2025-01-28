@@ -1,15 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuthContext from "../hooks/useAuthContext";
 import { toast } from "react-toastify";
 
 const Signup = () => {
   const { signupWithGoogle, signUpEmailPass } = useAuthContext();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   //signup with google
   const handleGoogleSignup = () => {
     signupWithGoogle()
       .then(() => {
         toast.success("Account created successfully");
+        navigate(location.state || "/");
       })
       .catch((e) => toast.error(e.message));
   };
@@ -23,6 +26,7 @@ const Signup = () => {
     signUpEmailPass(formData.email, formData.password)
       .then(() => {
         toast.success("Account created successfully");
+        navigate(location.state || "/");
       })
       .catch((e) => toast.error(e.message));
   };

@@ -62,7 +62,7 @@ const AuthProvider = ({ children }) => {
 
         axios
           .post(
-            "http://localhost:5000/jwt",
+            "https://library-management-server-iota.vercel.app/jwt",
             {
               email: user.email,
             },
@@ -71,7 +71,7 @@ const AuthProvider = ({ children }) => {
           .then((res) => console.log(res.data));
       } else {
         setUser(null);
-        setLoading(true);
+        setLoading(false);
       }
     });
 

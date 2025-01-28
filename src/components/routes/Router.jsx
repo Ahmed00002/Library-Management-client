@@ -78,7 +78,9 @@ export const router = createBrowserRouter([
           </>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/books/category?name=${params.name}`),
+          fetch(
+            `https://library-management-server-iota.vercel.app/books/category?name=${params.name}`
+          ),
       },
       {
         path: "/books/:id",
@@ -89,9 +91,12 @@ export const router = createBrowserRouter([
           </PrivateRoutes>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/books/${params.id}`, {
-            credentials: "include",
-          }),
+          fetch(
+            `https://library-management-server-iota.vercel.app/books/${params.id}`,
+            {
+              credentials: "include",
+            }
+          ),
       },
       {
         path: "/books/edit/:id",
@@ -102,9 +107,12 @@ export const router = createBrowserRouter([
           </PrivateRoutes>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/books/${params.id}`, {
-            credentials: "include",
-          }),
+          fetch(
+            `https://library-management-server-iota.vercel.app/books/${params.id}`,
+            {
+              credentials: "include",
+            }
+          ),
       },
       {
         path: "/add/book",
