@@ -12,6 +12,7 @@ import PrivateRoutes from "./private/PrivateRoutes";
 import BorrowedBooks from "../pages/BorrowedBooks";
 import AddBook from "../pages/AddBook";
 import DynamicTitle from "../shared/dynamic_title/DynamicTitle";
+import NotFound from "../pages/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,7 @@ export const router = createBrowserRouter([
         {/* <DynamicTitle title={"Home"} /> */}
       </>
     ),
+    errorElement: <NotFound />,
     children: [
       {
         path: "",

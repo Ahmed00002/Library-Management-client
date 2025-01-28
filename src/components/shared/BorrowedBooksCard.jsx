@@ -102,6 +102,7 @@ const BorrowedBookCard = ({ props }) => {
 export default BorrowedBookCard;
 
 BorrowedBookCard.propTypes = {
+  props: PropTypes.object,
   book: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     borrowData: PropTypes.string.isRequired,
