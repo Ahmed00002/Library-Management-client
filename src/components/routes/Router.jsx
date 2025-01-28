@@ -68,10 +68,6 @@ export const router = createBrowserRouter([
             <DynamicTitle title={"All Books"} />
           </PrivateRoutes>
         ),
-        loader: async () => {
-          const result = await fetch("http://localhost:5000/books");
-          return await result.json();
-        },
       },
       {
         path: "/books/category/:name",

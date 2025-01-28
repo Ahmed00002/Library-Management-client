@@ -11,13 +11,20 @@ const BorrowedBooks = () => {
   //   const [bookData, setBookData] = useState([]);
   const [BorrowedBookData, setBorrowedBookData] = useState([]);
   const { user } = useAuthContext();
-  console.log(user);
+  const [isFetching, setIsFetching] = useState(true);
 
   //   get borrowed books of user through the email
   useEffect(() => {
     axiosSecure
       .get(`/user/borrowed?email=${user?.email}`)
-      .then((res) => setBorrowedBookData(res.data));
+      .then((res) => {
+        setBorrowedBookData(res.data);
+        setIsFetching(false);
+        if (BorrowedBooks.length === 0) {
+          setIsFetching(false);
+        }
+      })
+      .catch(() => toast.error("Something went wrong"));
   }, [user?.email]);
 
   const refreshData = () => {
@@ -53,21 +60,34 @@ const BorrowedBooks = () => {
           <h1 className="font-medium">All Books That You Borrowed </h1>
           <p>Available to return: {BorrowedBookData.length}</p>
         </div>
-        {/* no books message */}
+        {!isFetching && (
+          // no books message
+          <div
+            className={`${
+              BorrowedBookData.length !== 0 ? "hidden" : "block"
+            } text-center space-y-4  flex flex-col justify-center items-center mt-12`}
+          >
+            <FaRegSadCry className="text-blue-500 text-6xl mx-auto" />
+            <h1 className="text-lg font-bold text-gray-400">
+              You Haven&apos;t borrowed any book yet
+            </h1>
+          </div>
+        )}
         <div
           className={`${
-            BorrowedBookData.length !== 0 ? "hidden" : "block"
-          } text-center space-y-4  flex flex-col justify-center items-center mt-12`}
+            !isFetching && "grid"
+          } grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2 center resPadding`}
         >
-          <FaRegSadCry className="text-blue-500 text-6xl mx-auto" />
-          <h1 className="text-lg font-bold text-gray-400">
-            You Haven&apos;t borrowed any book yet
-          </h1>
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2 center resPadding">
-          {BorrowedBookData.map((book) => (
-            <BorrowedBookCard key={book._id} props={{ book, handleReturn }} />
-          ))}
+          {isFetching ? (
+            <div className="flex flex-col justify-center items-center py-12">
+              <span className="loading loading-infinity loading-lg"></span>
+              <p>Loading Data</p>
+            </div>
+          ) : (
+            BorrowedBookData.map((book) => (
+              <BorrowedBookCard key={book._id} props={{ book, handleReturn }} />
+            ))
+          )}
         </div>
       </section>
     </>

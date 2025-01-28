@@ -1,11 +1,40 @@
-import { useLoaderData } from "react-router-dom";
+// import { useLoaderData } from "react-router-dom";
 import BookCard from "../shared/BooksCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TableCard from "../shared/TableCard";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const AllBooks = () => {
-  const booksList = useLoaderData();
+  const [booksList, setBookList] = useState([]);
   const [viewAs, setViewAs] = useState("grid");
+  const axiosSecure = useAxiosSecure();
+  const [isFetching, setIsFetching] = useState(true);
+
+  useEffect(() => {
+    axiosSecure
+      .get("/books")
+      .then((res) => {
+        setBookList(res.data);
+        setIsFetching(false);
+      })
+      .catch(() => {
+        setBookList([]);
+        setIsFetching(false);
+      });
+  }, [axiosSecure]);
+
+  const filterBook = () => {
+    axiosSecure
+      .get("/books?filter=true")
+      .then((res) => {
+        setBookList(res.data);
+        setIsFetching(false);
+      })
+      .catch(() => {
+        setBookList([]);
+        setIsFetching(false);
+      });
+  };
 
   const handleView = (e) => {
     setViewAs(e.target.value);
@@ -24,7 +53,9 @@ const AllBooks = () => {
 
         {/* sorting and layout */}
         <div className="flex justify-between mb-4">
-          <button>Show Available Books</button>
+          <button onClick={filterBook} className="btn btn-sm">
+            Show Available Books
+          </button>
           <div className="flex items-center gap-2">
             <p>View as</p>
             <select
@@ -41,7 +72,12 @@ const AllBooks = () => {
           </div>
         </div>
         {/* all book list */}
-        {viewAs === "grid" ? (
+        {isFetching ? (
+          <div className="flex flex-col justify-center items-center py-12">
+            <span className="loading loading-infinity loading-lg"></span>
+            <p>Loading Data</p>
+          </div>
+        ) : viewAs === "grid" ? (
           <>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2">
               {booksList.map((book) => (
