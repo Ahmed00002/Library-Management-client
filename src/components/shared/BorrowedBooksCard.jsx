@@ -4,7 +4,6 @@ import ReactStars from "react-rating-stars-component";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const BorrowedBookCard = ({ props }) => {
-  console.log(props);
   const axiosSecure = useAxiosSecure();
 
   const { book, handleReturn } = props;

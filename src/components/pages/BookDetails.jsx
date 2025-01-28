@@ -23,7 +23,6 @@ const BookDetails = () => {
   const refreshBookData = () => {
     axiosSecure.get(`/books/${_id}`).then((res) => {
       setBookDtls(res.data);
-      console.log(res.data);
       setLoading(false);
     });
   };

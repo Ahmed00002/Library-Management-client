@@ -6,7 +6,6 @@ const Login = () => {
   const { signupWithGoogle, signinEmailPass } = useAuthContext();
   const location = useLocation();
   const navigate = useNavigate();
-  // console.log(location);
 
   //signup with google
   const handleGoogleSignup = () => {
@@ -27,7 +26,7 @@ const Login = () => {
     signinEmailPass(formData.email, formData.password)
       .then(() => {
         toast.success("logged in successfully");
-        navigate(location.state || "/");
+        `navigate(location.state || "/");`;
       })
       .catch((e) => toast.error(e.message));
   };

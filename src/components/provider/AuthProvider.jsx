@@ -11,6 +11,7 @@ import {
 import auth from "../firebase/firebase_init";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const AuthProvider = ({ children }) => {
   // user data
@@ -68,7 +69,7 @@ const AuthProvider = ({ children }) => {
             },
             { withCredentials: true }
           )
-          .then((res) => console.log(res.data));
+          .catch((e) => toast.error(e.message));
       } else {
         setUser(null);
         setLoading(false);
