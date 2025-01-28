@@ -1,34 +1,46 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuthContext from "../hooks/useAuthContext";
 import { toast } from "react-toastify";
+import { useState } from "react";
 
 const Login = () => {
   const { signupWithGoogle, signinEmailPass } = useAuthContext();
   const location = useLocation();
   const navigate = useNavigate();
+  const [isLogging, setIsLogging] = useState(false);
 
   //signup with google
   const handleGoogleSignup = () => {
+    setIsLogging(true);
     signupWithGoogle()
       .then(() => {
         toast.success("Account created successfully");
         navigate(location.state || "/");
+        setIsLogging(false);
       })
-      .catch((e) => toast.error(e.message));
+      .catch((e) => {
+        toast.error(e.message);
+        setIsLogging(false);
+      });
   };
 
   // sign in with email and password
   const handleSignin = (e) => {
     e.preventDefault();
+    setIsLogging(true);
     const form = new FormData(e.target);
     const formData = Object.fromEntries(form.entries());
 
     signinEmailPass(formData.email, formData.password)
       .then(() => {
         toast.success("logged in successfully");
-        `navigate(location.state || "/");`;
+        navigate(location.state || "/");
+        setIsLogging(false);
       })
-      .catch((e) => toast.error(e.message));
+      .catch((e) => {
+        toast.error(e.message);
+        setIsLogging(false);
+      });
   };
 
   return (
@@ -83,8 +95,11 @@ const Login = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="flex items-center justify-center gap-2 w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
+            {isLogging && (
+              <span className="loading loading-bars loading-xs"></span>
+            )}
             Login
           </button>
         </form>

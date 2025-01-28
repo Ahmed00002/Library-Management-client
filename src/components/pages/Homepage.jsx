@@ -9,7 +9,7 @@ const Home = () => {
   const [popularBooks, setPopularBooks] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:5000/books/popular")
+      .get("https://library-management-server-iota.vercel.app/books/popular")
       .then((res) => setPopularBooks(res.data));
   }, []);
   return (
