@@ -1,9 +1,10 @@
+import logo from "/src/assets/libraryFab.png";
 const Footer = () => {
   return (
     <>
       <footer className="footer bg-base-200 text-base-content p-10">
         <aside>
-          <img src="/src/assets/libraryFab.png" alt="logo" />
+          <img src={logo} alt="logo" />
           <h2 className="text-lg font-bold">Librario</h2>
           <p className="text-sm">Knowledge haven</p>
         </aside>
