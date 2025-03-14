@@ -1,4 +1,6 @@
 import logo from "/src/assets/libraryFab.png";
+import { NavLink } from "react-router-dom";
+
 const Footer = () => {
   return (
     <>
@@ -10,9 +12,15 @@ const Footer = () => {
         </aside>
         <nav>
           <h6 className="footer-title">Options</h6>
-          <a className="link link-hover">Home</a>
-          <a className="link link-hover">All Books</a>
-          <a className="link link-hover">Borrow Books</a>
+          <NavLink to={"/"} className="link link-hover">
+            Home
+          </NavLink>
+          <NavLink to={"/books"} className="link link-hover">
+            All Books
+          </NavLink>
+          <NavLink to={"/user/borrowed"} className="link link-hover">
+            Borrow Books
+          </NavLink>
         </nav>
         <nav>
           <h6 className="footer-title">information</h6>
@@ -27,12 +35,15 @@ const Footer = () => {
           <a className="link link-hover">Cookie policy</a>
         </nav>
         <nav className=" w-full">
-          <p>Subscribe Now</p>
+          <p>Subscribe Our Newsletter</p>
           <input
             type="text"
             placeholder="Enter email"
             className="input input-bordered w-full  max-w-xs"
           />
+          <button className="w-full py-2 rounded-lg text-center bg-primary text-white font-medium uppercase">
+            Subscribe
+          </button>
         </nav>
       </footer>
       <div className=" bg-base-200 text-center pb-2 w-full border border-t-gray-300">

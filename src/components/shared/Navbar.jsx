@@ -34,7 +34,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="navbar bg-base-100 resPadding center shadow-2xl">
+      <div className="navbar bg-base-100 resPadding center shadow-md sticky top-0 left-0 w-full z-20">
         <div className="navbar-start">
           {/* mobile menus */}
           <div className="dropdown z-50">
